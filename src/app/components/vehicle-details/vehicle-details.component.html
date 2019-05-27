@@ -1,0 +1,23 @@
+<mat-card class="details-card">
+  <mat-card-title class="vehicle-title">{{vehicle.name}}</mat-card-title>
+  <mat-card-content class="vehicles-details-data">
+    <table>
+      <tr>
+        <td>Created Time</td>
+        <td>{{vehicle.timeCreated}}</td>
+      </tr>
+      <tr>
+        <td>Car Type</td>
+        <td>{{vehicle.carType}}</td>
+      </tr>
+      <tr>
+        <td>last connection</td>
+        <td>{{vehicle.lastSuccessfulConnection}}</td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="removeVehicle(vehicle)"><img src="../../../assets/baseline_delete_black_18dp.png" height="36" width="36"/></button>
+    <button mat-button (click)="editVehicle()" ><img src="../../../assets/baseline_edit_black_18dp.png" height="36" width="36"/></button>
+  </mat-card-actions>
+</mat-card>

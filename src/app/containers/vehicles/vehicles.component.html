@@ -1,0 +1,19 @@
+<div class="vehicle-container-data">
+  <mat-card class="vehcles-container">
+    <div class="vehicle-div" *ngFor="let vehicle of vehicles">
+      <app-vehicle (click)="chooseVehicle(vehicle)" [vehicle]="vehicle"></app-vehicle>
+    </div>
+  </mat-card>
+  <div class="vehicle-detatils">
+    <app-vehicle-details (vehicleEmitter)="removeVehicle($event)" (editEmitter)="editVehicle($event)"
+                         *ngIf="selectedVehcile"
+                         [vehicle]="selectedVehcile"></app-vehicle-details>
+  </div>
+</div>
+
+<button (click)="openVehicleDailog()" matTooltip="Add Vehicle" [matTooltipPosition]="'after'" class="add-vehicle"
+        [disableRipple]="true"
+        mat-button>
+  <img src="../../../assets/outline_add_circle_black_48dp.png" height="48" width="48"/>
+</button>
+

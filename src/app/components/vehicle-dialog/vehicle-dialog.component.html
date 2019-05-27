@@ -1,0 +1,17 @@
+<span>{{data.action}} Vehicle</span>
+<div class="dialog-content">
+  <mat-form-field class="input">
+    <mat-label>Car Name:</mat-label>
+    <input #carName matInput >
+  </mat-form-field>
+  <mat-form-field class="input">
+    <mat-label>Car Type:</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option value="SUV">SUV</mat-option>
+      <mat-option value="Truck">TRUCK</mat-option>
+      <mat-option value="Hybrid">HYBRID</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button (click)="closeDialog(carName)" mat-button>{{data.action}}</button>
+</div>
+

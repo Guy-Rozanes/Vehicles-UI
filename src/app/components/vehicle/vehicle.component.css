@@ -1,0 +1,8 @@
+.vehicle-card {
+  background-color: #639FAB;
+  width: 187px;
+  height: 93px;
+  font-size: 31px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
