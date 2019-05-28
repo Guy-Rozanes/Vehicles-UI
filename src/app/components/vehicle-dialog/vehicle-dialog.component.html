@@ -2,7 +2,7 @@
 <div class="dialog-content">
   <mat-form-field class="input">
     <mat-label>Car Name:</mat-label>
-    <input #carName matInput >
+    <input #carName matInput>
   </mat-form-field>
   <mat-form-field class="input">
     <mat-label>Car Type:</mat-label>
@@ -12,6 +12,11 @@
       <mat-option value="Hybrid">HYBRID</mat-option>
     </mat-select>
   </mat-form-field>
-  <button (click)="closeDialog(carName)" mat-button>{{data.action}}</button>
+  <mat-form-field>
+    <input matInput #dateConnection [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button (click)="closeDialog()" mat-button>{{data.action}}</button>
 </div>
 

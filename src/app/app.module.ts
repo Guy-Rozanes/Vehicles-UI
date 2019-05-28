@@ -8,10 +8,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {VehicleComponent} from './components/vehicle/vehicle.component';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDatepickerModule,
   MatDialogModule, MatFormField, MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatOptionModule,
+  MatInputModule, MatNativeDateModule, MatOptionModule,
   MatRippleModule, MatSelectModule, MatSnackBar, MatSnackBarModule,
   MatTooltipModule
 } from '@angular/material';
@@ -32,7 +32,9 @@ const angularMaterialModules = [
   MatFormFieldModule,
   MatOptionModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

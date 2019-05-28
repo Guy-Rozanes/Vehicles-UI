@@ -22,31 +22,28 @@ export class VehiclesComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getAllVehicles();
+
   }
 
   getAllVehicles() {
     this.service.getAllVehicle().subscribe(data => {
       this.vehicles = data;
+      console.log(this.vehicles);
     });
   }
 
   chooseVehicle(vehcile: VehicleModel) {
-    const editedVehicle = this.editSuccessfullConnectionTime(vehcile);
+    console.log(vehcile);
     if (this.selectedVehcile) {
       if (this.selectedVehcile.id === vehcile.id) {
         this.selectedVehcile = null;
       } else {
         this.selectedVehcile = vehcile;
-        this.service.editVehicle(editedVehicle).subscribe(data => {
-          this.selectedVehcile.lastSuccessfulConnection = editedVehicle.lastSuccessfulConnection;
-        });
       }
     } else {
       this.selectedVehcile = vehcile;
-      this.service.editVehicle(editedVehicle).subscribe(data => {
-        this.selectedVehcile.lastSuccessfulConnection = editedVehicle.lastSuccessfulConnection;
-      });
     }
   }
 
