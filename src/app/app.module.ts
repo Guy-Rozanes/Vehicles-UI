@@ -18,6 +18,7 @@ import {
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {VehicleDetailsComponent} from './components/vehicle-details/vehicle-details.component';
 import {VehicleDialogComponent} from './components/vehicle-dialog/vehicle-dialog.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 const angularMaterialModules = [
@@ -49,7 +50,8 @@ const angularMaterialModules = [
     ...angularMaterialModules,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

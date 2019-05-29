@@ -21,7 +21,7 @@ export class VehicleDetailsComponent implements OnInit {
   @Output() editEmitter = new EventEmitter<VehicleModel>();
 
   ngOnInit() {
-    console.log(this.vehicle.lastSuccessfulConnection);
+
   }
 
   removeVehicle(vehicle: VehicleModel) {

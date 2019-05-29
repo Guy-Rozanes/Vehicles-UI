@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import VehicleModel from '../../models/vehicle/vehicle.model';
 import dateFormat from 'dateformat';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-vehicle-dialog',
@@ -13,8 +14,8 @@ export class VehicleDialogComponent implements OnInit {
   private selected = 'SUV';
   private vehicle: VehicleModel;
   private createdTime: number;
-  @ViewChild('carName') carName;
   @ViewChild('dateConnection') dateConnection;
+  carNameField = new FormControl('', [Validators.required]);
 
   constructor(public dialogRef: MatDialogRef<VehicleDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -23,32 +24,30 @@ export class VehicleDialogComponent implements OnInit {
   ngOnInit() {
     this.vehicle = this.data.vehicle ? this.data.vehicle : null;
     if (this.vehicle) {
-      const date = this.epochToDate(this.vehicle.lastSuccessfulConnection);
-
-      this.carName.nativeElement.value = this.vehicle.name;
+      this.carNameField.setValue(this.vehicle.name);
       this.selected = this.vehicle.carType;
       this.createdTime = this.vehicle.timeCreated;
-      this.dateConnection.nativeElement.value = date;
+      this.dateConnection.nativeElement.value = this.epochToDate(this.vehicle.lastSuccessfulConnection);
     }
   }
 
-  closeDialog(picker) {
+  closeDialog() {
     let vehicle = {};
     if (this.data.action === 'Edit') {
-      console.log();
       vehicle = {
         id: this.vehicle.id,
-        name: this.carName.nativeElement.value,
+        name: this.carNameField.value,
         carType: this.selected,
-        timeCreated: this.vehicle.timeCreated,
+        timeCreated: this.createdTime,
         lastSuccessfulConnection: this.convertToEpoch(this.dateConnection.nativeElement.value)
       }
       ;
     } else {
+      const createTime: number = Date.now();
       vehicle = {
-        name: this.carName.nativeElement.value,
+        name: this.carNameField.value,
         carType: this.selected,
-        timeCreated: Date.now(),
+        timeCreated: createTime / 1000,
         lastSuccessfulConnection: this.convertToEpoch(this.dateConnection.nativeElement.value)
       };
     }
@@ -59,9 +58,8 @@ export class VehicleDialogComponent implements OnInit {
       });
   }
 
-  private convertToEpoch(dateString: string): number {
+  private convertToEpoch(dateString: string) {
     const array = dateString.split('/');
-    const dateFormmated = `${+array[2]}-${+array[0]}-${+array[1]}`;
 
     const epochTime = Math.round(new Date(+array[2], +array[0], +array[1]).getTime() / 1000);
     return epochTime;
@@ -69,7 +67,8 @@ export class VehicleDialogComponent implements OnInit {
 
   private epochToDate(epoch: number) {
     const epochDate = new Date(epoch * 1000);
-    const date = dateFormat(epochDate.setMonth(epochDate.getMonth() - 1), 'mm/dd/yyyy');
+    return dateFormat(epochDate.setMonth(epochDate.getMonth() - 1), 'mm/dd/yyyy');
+
   }
 
 

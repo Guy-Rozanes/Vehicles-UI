@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ServerService} from '../../services/server.service';
-import {Observable} from 'rxjs';
 import VehicleModel from '../../models/vehicle/vehicle.model';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {VehicleDialogComponent} from '../../components/vehicle-dialog/vehicle-dialog.component';
@@ -22,20 +21,16 @@ export class VehiclesComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.getAllVehicles();
-
   }
 
   getAllVehicles() {
     this.service.getAllVehicle().subscribe(data => {
       this.vehicles = data;
-      console.log(this.vehicles);
     });
   }
 
   chooseVehicle(vehcile: VehicleModel) {
-    console.log(vehcile);
     if (this.selectedVehcile) {
       if (this.selectedVehcile.id === vehcile.id) {
         this.selectedVehcile = null;
@@ -56,8 +51,8 @@ export class VehiclesComponent implements OnInit {
     });
     dialog.afterClosed().subscribe(data => {
       this.service.createVehicle(data.vehicle).subscribe((respone: any) => {
-        console.log(data);
         this.vehicles.push(data.vehicle);
+
       }, (err => {
         this.matSnackBar.open(err.error.message, 'Dismiss', {
           duration: 3000
@@ -67,7 +62,6 @@ export class VehiclesComponent implements OnInit {
   }
 
   removeVehicle(event) {
-    console.log(event.id);
     this.service.deleteVehicle(event.id).subscribe(data => {
       _.remove(this.vehicles, (item: VehicleModel) => {
         return item.id === event.id;
@@ -84,12 +78,8 @@ export class VehiclesComponent implements OnInit {
           vehicle.name = event.name;
         }
       });
-    });
-  }
 
-  private editSuccessfullConnectionTime(vehicle: VehicleModel) {
-    vehicle.lastSuccessfulConnection = Date.now();
-    return vehicle;
+    });
   }
 
 }
